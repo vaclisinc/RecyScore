@@ -6,6 +6,7 @@ from tkinter import Tk, Button
 from picamera2 import Picamera2
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
 from dotenv import load_dotenv
+from threading import Thread
 
 # === 設定區 ===
 CERT_PATH = os.path.expanduser("~/aws-iot-certs/")
@@ -55,8 +56,29 @@ def capture_and_upload():
         print(f"❌ Error: {e}")
 
 # GUI 觸控介面
+def gui_capture():
+    def task():
+        btn.config(text="上傳中請稍後...", bg="#d5bdaf", state="disabled")
+        capture_and_upload()
+        btn.config(text="點我拍攝回收物品", bg="#d6ccc2", state="normal")
+
+    Thread(target=task).start()
+
 root = Tk()
-root.attributes('-fullscreen', True)  # 全螢幕
-btn = Button(root, text="📷 拍照上傳", font=("Arial", 40), command=capture_and_upload)
-btn.pack(expand=True, fill='both')
+root.title("RecyScore 拍照上傳")
+root.configure(bg='black')
+root.attributes('-fullscreen', True)
+
+btn = Button(
+    root,
+    text="點我拍攝回收物品",
+    font=("Arial", 48),
+    bg="#d6ccc2",
+    fg="white",
+    activebackground="#d5bdaf",
+    activeforeground="white",
+    command=gui_capture
+)
+btn.pack(expand=True, fill='both', padx=50, pady=50)
+
 root.mainloop()
