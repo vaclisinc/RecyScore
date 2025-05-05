@@ -1,0 +1,5 @@
+ENDPOINT = "XXXXXXXXX-ats.iot.us-east-1.amazonaws.com"
+
+ROOT_CA = CERT_PATH + "AmazonRootCA1.pem"
+PRIVATE_KEY = CERT_PATH + "XXXXXXXXXXXXXXXXX-private.pem.key"         
+CERT = CERT_PATH + "XXXXXXXXXXXXXXXXX-certificate.pem.crt"             
