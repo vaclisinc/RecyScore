@@ -5,17 +5,19 @@ import base64
 from tkinter import Tk, Button
 from picamera2 import Picamera2
 from AWSIoTPythonSDK.MQTTLib import AWSIoTMQTTClient
+from dotenv import load_dotenv
 
-# 設定區
+# === 設定區 ===
 CERT_PATH = os.path.expanduser("~/aws-iot-certs/")
-ENDPOINT = "a2drix3z851hyd-ats.iot.us-east-1.amazonaws.com"
 CLIENT_ID = "RaspberryPi_Camera"
 TOPIC = "camera/images"
 IMAGE_PATH = "/tmp/image.jpg"
 
-ROOT_CA = CERT_PATH + "AmazonRootCA1.pem"
-PRIVATE_KEY = CERT_PATH + "b555123197747ec6327a53bf46c85636106f00b514b01e9a7b3fbc96fa730b81-private.pem.key"          # 替換這行
-CERT = CERT_PATH + "b555123197747ec6327a53bf46c85636106f00b514b01e9a7b3fbc96fa730b81-certificate.pem.crt"             # 替換這行
+load_dotenv()
+ENDPOINT = os.getenv("ENDPOINT")
+ROOT_CA = CERT_PATH + os.getenv("ROOT_CA")
+PRIVATE_KEY = CERT_PATH + os.getenv("PRIVATE_KEY")
+CERT = CERT_PATH + os.getenv("CERT")
 
 # MQTT 初始化
 mqtt_client = AWSIoTMQTTClient(CLIENT_ID)

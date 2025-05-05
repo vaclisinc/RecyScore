@@ -16,10 +16,9 @@ IMAGE_PATH = "/tmp/image.jpg"
 
 load_dotenv()
 ENDPOINT = os.getenv("ENDPOINT")
-CERT_PATH = os.getenv("CERT_PATH")
-ROOT_CA = os.getenv("ROOT_CA")
-PRIVATE_KEY = os.getenv("PRIVATE_KEY")
-CERT = os.getenv("CERT")
+ROOT_CA = CERT_PATH + os.getenv("ROOT_CA")
+PRIVATE_KEY = CERT_PATH + os.getenv("PRIVATE_KEY")
+CERT = CERT_PATH + os.getenv("CERT")
 
 # === 初始化 MQTT 客戶端 ===
 mqtt_client = AWSIoTMQTTClient(CLIENT_ID)
