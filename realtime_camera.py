@@ -11,9 +11,11 @@ from threading import Thread
 
 # === 載入憑證設定 ===
 CERT_PATH = os.path.expanduser("~/aws-iot-certs/")
-CLIENT_ID = "RaspberryPi_Camera"
+CLIENT_ID = "RaspberryPi_Cam"
 TOPIC = "camera/images"
 IMAGE_PATH = "/tmp/image.jpg"
+SHADOW_TOPIC_UPDATE = f"$aws/things/{CLIENT_ID}/shadow/update"
+SHADOW_TOPIC_DELTA = f"$aws/things/{CLIENT_ID}/shadow/delta"
 
 load_dotenv()
 ENDPOINT = os.getenv("ENDPOINT")
@@ -29,9 +31,41 @@ mqtt_client.configureOfflinePublishQueueing(-1)
 mqtt_client.configureDrainingFrequency(2)
 mqtt_client.configureConnectDisconnectTimeout(10)
 mqtt_client.configureMQTTOperationTimeout(5)
+
+# === Shadow State Management ===
+def update_shadow_state(state):
+    try:
+        shadow_payload = {
+            "state": {
+                "reported": state
+            }
+        }
+        mqtt_client.publish(SHADOW_TOPIC_UPDATE, json.dumps(shadow_payload), 1)
+        print("Updated shadow state:", state)
+    except Exception as e:
+        print(f"Error updating shadow state: {e}")
+
+def shadow_delta_callback(client, userdata, message):
+    try:
+        payload = json.loads(message.payload)
+        print("Received shadow delta:", payload)
+        
+        # 處理 delta 更新
+        if 'state' in payload:
+            state = payload['state']
+            if 'capture' in state and state['capture']:
+                print("Received capture command from shadow")
+                capture_and_upload()
+    except Exception as e:
+        print(f"Error processing shadow delta: {e}")
+
 print("🔗 Connecting to AWS IoT Core...")
 mqtt_client.connect()
 print("✅ Connected!")
+
+# 訂閱 shadow delta 主題
+mqtt_client.subscribe(SHADOW_TOPIC_DELTA, 1, shadow_delta_callback)
+print(f"Subscribed to shadow delta topic: {SHADOW_TOPIC_DELTA}")
 
 # === 相機初始化 ===
 picam2 = Picamera2()
@@ -57,19 +91,43 @@ def draw_button(icon):
 # 拍照與上傳
 def capture_and_upload():
     def task():
-        draw_button("📤")
-        picam2.capture_file(IMAGE_PATH)
-        with open(IMAGE_PATH, "rb") as f:
-            encoded_image = base64.b64encode(f.read()).decode('utf-8')
-        payload = {
-            "timestamp": int(time.time()),
-            "device_id": CLIENT_ID,
-            "image_data": encoded_image
-        }
-        mqtt_client.publish(TOPIC, json.dumps(payload), 1)
-        draw_button("✅")
-        time.sleep(0.5)
-        draw_button("📷")
+        try:
+            # 更新狀態為拍照中
+            update_shadow_state({"status": "capturing"})
+            draw_button("📤")
+            
+            # 拍照
+            picam2.capture_file(IMAGE_PATH)
+            
+            # 更新狀態為上傳中
+            update_shadow_state({"status": "uploading"})
+            
+            # 讀取並編碼圖片
+            with open(IMAGE_PATH, "rb") as f:
+                encoded_image = base64.b64encode(f.read()).decode('utf-8')
+            
+            # 準備並發送數據
+            payload = {
+                "timestamp": int(time.time()),
+                "device_id": CLIENT_ID,
+                "image_data": encoded_image
+            }
+            mqtt_client.publish(TOPIC, json.dumps(payload), 1)
+            
+            # 更新狀態為完成
+            update_shadow_state({"status": "idle"})
+            draw_button("✅")
+            time.sleep(0.5)
+            draw_button("📷")
+            
+        except Exception as e:
+            print(f"Error in capture_and_upload: {e}")
+            # 更新狀態為錯誤
+            update_shadow_state({"status": "error", "error": str(e)})
+            draw_button("❌")
+            time.sleep(0.5)
+            draw_button("📷")
+    
     Thread(target=task).start()
 
 # 點擊偵測按鈕範圍
@@ -92,4 +150,8 @@ def update_preview():
 # 啟動
 draw_button("📷")
 update_preview()
+
+# 設置初始狀態
+update_shadow_state({"status": "idle"})
+
 root.mainloop()
