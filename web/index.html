@@ -3,45 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>回收統計</title>
+    <title>RecyScore</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>回收成果追蹤</h1>
-        
-        <div class="stats-overview">
-            <h2>總覽</h2>
-            <p>總回收分數：<strong id="totalScore">載入中...</strong></p>
-            <p>已處理回收項目總數：<strong id="itemsProcessed">載入中...</strong></p>
+    <!-- 登入表單 -->
+    <div id="loginForm" class="login-container">
+        <h2>登入</h2>
+        <form id="login">
+            <input type="text" id="username" placeholder="使用者名稱" required>
+            <input type="password" id="password" placeholder="密碼" required>
+            <button type="submit">登入</button>
+        </form>
+    </div>
+
+    <!-- 主要內容區域 -->
+    <div id="mainContent" class="container" style="display: none;">
+        <!-- 導航欄 -->
+        <nav class="nav-bar">
+            <button class="nav-btn active" data-page="dashboard">回收統計</button>
+            <button class="nav-btn" data-page="rewards">點數兌換</button>
+            <button id="logoutBtn" class="logout-btn">登出</button>
+        </nav>
+
+        <!-- 儀表板頁面 -->
+        <div id="dashboard" class="page active">
+            <h1>回收成果追蹤</h1>
+            <h2>各類別回收數量</h2>
+            <div class="category-grid">
+                <div class="category-item">
+                    <h3>廢紙</h3>
+                    <p id="count-廢紙">0</p>
+                </div>
+                <div class="category-item">
+                    <h3>紙容器</h3>
+                    <p id="count-紙容器">0</p>
+                </div>
+                <div class="category-item">
+                    <h3>塑膠</h3>
+                    <p id="count-塑膠">0</p>
+                </div>
+                <div class="category-item">
+                    <h3>金屬</h3>
+                    <p id="count-金屬">0</p>
+                </div>
+                <div class="category-item">
+                    <h3>玻璃</h3>
+                    <p id="count-玻璃">0</p>
+                </div>
+            </div>
+            <button id="refreshButton">重新整理數據</button>
+            
+            <!-- 橫列總覽與設備狀態 -->
+            <div class="dashboard-row">
+                <div class="stats-overview-circles">
+                    <div class="circle-stat">
+                        <div class="circle-number" id="totalScore">載入中...</div>
+                        <div class="circle-label">總回收分數</div>
+                    </div>
+                    <div class="circle-stat">
+                        <div class="circle-number" id="itemsProcessed">載入中...</div>
+                        <div class="circle-label">回收物品總數</div>
+                    </div>
+                </div>
+                <div class="device-status">
+                    <h2>設備狀態</h2>
+                    <div class="status-indicator">
+                        <span class="status-dot" id="statusDot"></span>
+                        <span id="deviceStatus"></span>
+                        <span id="deviceState" style="margin-left: 12px; color: #50d06c; font-weight: bold;"></span>
+                    </div>
+                    <div id="lastConnection"></div>
+                </div>
+            </div>
+            <p id="lastUpdated">上次更新：尚未更新</p>
+            <p id="error-message" class="error-text"></p>
         </div>
 
-        <h2>各類別回收數量</h2>
-        <div class="category-grid">
-            <div class="category-item">
-                <h3>廢紙</h3>
-                <p id="count-廢紙">0</p>
+        <!-- 點數兌換頁面 -->
+        <div id="rewards" class="page">
+            <h1>點數兌換</h1>
+            <div class="current-score-display">
+                目前分數：<span id="currentScore">載入中...</span>
             </div>
-            <div class="category-item">
-                <h3>紙容器</h3>
-                <p id="count-紙容器">0</p>
-            </div>
-            <div class="category-item">
-                <h3>塑膠</h3>
-                <p id="count-塑膠">0</p>
-            </div>
-            <div class="category-item">
-                <h3>金屬</h3>
-                <p id="count-金屬">0</p>
-            </div>
-            <div class="category-item">
-                <h3>玻璃</h3>
-                <p id="count-玻璃">0</p>
+            <div class="rewards-grid">
+                <div class="reward-item">
+                    <img src="image/711_coffee.jpg" alt="7-11 咖啡券">
+                    <h3>7-11 咖啡券</h3>
+                    <p>所需點數：100點</p>
+                    <button class="redeem-btn">兌換</button>
+                </div>
+                <div class="reward-item">
+                    <img src="image/family_icecream.jpg" alt="全家霜淇淋">
+                    <h3>全家霜淇淋</h3>
+                    <p>所需點數：150點</p>
+                    <button class="redeem-btn">兌換</button>
+                </div>
+                <div class="reward-item">
+                    <img src="image/starbucks.jpg" alt="星巴克咖啡券">
+                    <h3>星巴克咖啡券</h3>
+                    <p>所需點數：200點</p>
+                    <button class="redeem-btn">兌換</button>
+                </div>
             </div>
         </div>
-        <button id="refreshButton">重新整理數據</button>
-        <p id="lastUpdated">上次更新：尚未更新</p>
-        <p id="error-message" class="error-text"></p>
     </div>
 
     <script src="script.js"></script>
