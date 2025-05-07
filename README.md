@@ -18,6 +18,8 @@ source venv/bin/activate
 - 跑start.sh，他example就會開始傳垃圾上去給你測試，你有看到就可以終止了
 - 跑cam.py，跑之前要先pip install AWSIoTPythonSDK picamera2 ===> cam.py是每兩秒拍一張照片上傳到s3
 - 跑screen.py，一定要用樹莓派的terminal跑，可用vpc遠端控制==>screen.py會打開GUI，讓你可以按了觸控螢幕就拍照
+- 跑realtime_camera.py，要先裝：
+pip install --upgrade --force-reinstall --no-cache-dir pillow
 ### 在amazon端
 - 在AWS IoT左側Message Routing/rules中的RaspberryPi_to_S3改成用lambda，lambda的程式碼在lambda/ImageHandler_vaclis.py
 - 在AWS IoT左側All Devices/Things中的RaspberryPi_Cam中的b555123197747ec6327a53bf46c85636106f00b514b01e9a7b3fbc96fa730b81中的vaclis_home-Policy暫時改成iot有所有權限，程式碼在policy/vaclis_home-Policy.json
