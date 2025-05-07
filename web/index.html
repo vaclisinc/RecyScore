@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回收統計</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>回收成果追蹤</h1>
+        
+        <div class="stats-overview">
+            <h2>總覽</h2>
+            <p>總回收分數：<strong id="totalScore">載入中...</strong></p>
+            <p>已處理回收項目總數：<strong id="itemsProcessed">載入中...</strong></p>
+        </div>
+
+        <h2>各類別回收數量</h2>
+        <div class="category-grid">
+            <div class="category-item">
+                <h3>廢紙</h3>
+                <p id="count-廢紙">0</p>
+            </div>
+            <div class="category-item">
+                <h3>紙容器</h3>
+                <p id="count-紙容器">0</p>
+            </div>
+            <div class="category-item">
+                <h3>塑膠</h3>
+                <p id="count-塑膠">0</p>
+            </div>
+            <div class="category-item">
+                <h3>金屬</h3>
+                <p id="count-金屬">0</p>
+            </div>
+            <div class="category-item">
+                <h3>玻璃</h3>
+                <p id="count-玻璃">0</p>
+            </div>
+        </div>
+        <button id="refreshButton">重新整理數據</button>
+        <p id="lastUpdated">上次更新：尚未更新</p>
+        <p id="error-message" class="error-text"></p>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
