@@ -7,13 +7,13 @@
 ## **Project Overview**
 RecyScore is an innovative IoT-based recycling reward system that uses Large Language Model (LLM) to identify and classify recyclable items. The system provides real-time feedback and rewards users for proper recycling practices, encouraging sustainable waste management.
 
-### **Key Features**
+## **Key Features**
+![RecyScore_why_us](https://raw.githubusercontent.com/vaclisinc/RecyScore/b82890ac0d6df47886a749a73eb47afdfbc92adc/slides/RecyScore_why_us.jpg)
 - Real-time object capturing and uploading using Raspberry Pi camera and official tablet
 - AWS IoT Core integration for device status management on web
 - AI-powered image analysis using OpenAI's LLM model
 - Web-based dashboard for tracking recycling statistics
 - Reward system for encouraging proper recycling practices
-![RecyScore_why_us](https://raw.githubusercontent.com/vaclisinc/RecyScore/5df611c89dd9c02b192cded52a30ddf01e5f709e/slides/RecyScore_System_Design.jpg)
 
 ## **System Architecture**
 ![RecyScore_system_design](https://raw.githubusercontent.com/vaclisinc/RecyScore/5df611c89dd9c02b192cded52a30ddf01e5f709e/slides/RecyScore_System_Design.jpg)
@@ -32,8 +32,8 @@ RecyScore is an innovative IoT-based recycling reward system that uses Large Lan
 ## **Project Structure**
 ```
 RecyScore/
-├── pi/                 # Raspberry Pi related code
-├── lambda/            # AWS Lambda functions
+├── pi/               # Raspberry Pi related code
+├── lambda/           # AWS Lambda functions
 ├── web/              # Web interface files
 ├── policy/           # AWS IAM policies
 └── run.sh            # Startup script
@@ -48,6 +48,3 @@ RecyScore/
 - OpenAI API
 - Raspberry Pi
 - HTML/CSS/JavaScript
-
-## **License**
-This project is licensed under the MIT License - see the LICENSE file for details.
