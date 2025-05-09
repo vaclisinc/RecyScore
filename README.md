@@ -13,14 +13,10 @@ RecyScore is an innovative IoT-based recycling reward system that uses Large Lan
 - AI-powered image analysis using OpenAI's LLM model
 - Web-based dashboard for tracking recycling statistics
 - Reward system for encouraging proper recycling practices
+![RecyScore_why_us](https://raw.githubusercontent.com/vaclisinc/RecyScore/5df611c89dd9c02b192cded52a30ddf01e5f709e/slides/RecyScore_System_Design.jpg)
 
 ## **System Architecture**
-The project consists of several key components:
-- **Raspberry Pi Module**: Handles camera capture and local processing
-- **AWS IoT Core**: Manages device connectivity and state
-- **Lambda Functions**: Process images and manage data
-- **Web Interface**: Displays statistics and user dashboard
-- **DynamoDB**: Stores recycling statistics and user data
+![RecyScore_system_design](https://raw.githubusercontent.com/vaclisinc/RecyScore/5df611c89dd9c02b192cded52a30ddf01e5f709e/slides/RecyScore_System_Design.jpg)
 
 ## **Team Members**
 - **Song-Ze, Yu** [(@vaclisinc)](http://github.com/vaclisinc): Raspberry Pi camera capturing and GUI, AWS ioT core and device shadow, website function writing, slide making and video editing.
