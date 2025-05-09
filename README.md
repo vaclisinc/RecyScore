@@ -1,11 +1,14 @@
 # RecyScore: An IoT-based Recycling Reward System
-[![RecyScore](https://raw.githubusercontent.com/vaclisinc/RecyScore/94c3842ee217831b425d6b2e223086942097fd4a/RecyScore_preview.png)](https://github.com/vaclisinc/RecyScore/blob/main/RecyScore_slides.pdf)
-*Click on the picture to view our full presentation PDF*
+[![RecyScore](https://raw.githubusercontent.com/vaclisinc/RecyScore/94c3842ee217831b425d6b2e223086942097fd4a/RecyScore_preview.png)](https://youtu.be/Dq3dorVjYOg?t=178)
+*Click on the picture to view our demo video*
 
 ---
 
 ## **Project Overview**
-RecyScore is an innovative IoT-based recycling reward system that uses Large Language Model (LLM) to identify and classify recyclable items. The system provides real-time feedback and rewards users for proper recycling practices, encouraging sustainable waste management.
+- RecyScore is an innovative IoT-based recycling reward system that uses Large Language Model (LLM) to identify and classify recyclable items.
+- The system provides real-time feedback and rewards users for proper recycling practices, encouraging sustainable waste management.
+- Feel free to scroll down the README or read the [slides](https://github.com/vaclisinc/RecyScore/blob/main/slides/RecyScore_slides.pdf) or [12-minute-presentation](https://youtu.be/Dq3dorVjYOg).
+- Feel free to open our [website](http://your-recycling-stats-webapp.s3-website-us-east-1.amazonaws.com/) or with the demo account: `vaclis`, password: `vaclis`
 
 ## **Key Features**
 ![RecyScore_why_us](https://raw.githubusercontent.com/vaclisinc/RecyScore/b82890ac0d6df47886a749a73eb47afdfbc92adc/slides/RecyScore_why_us.jpg)
