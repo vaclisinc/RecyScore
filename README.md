@@ -1,25 +1,57 @@
-# RecyScore
+# RecyScore: An IoT-based Recycling Reward System
+[![RecyScore](https://raw.githubusercontent.com/vaclisinc/RecyScore/94c3842ee217831b425d6b2e223086942097fd4a/RecyScore_preview.png)](https://github.com/vaclisinc/RecyScore/blob/main/RecyScore_slides.pdf)
+*Click on the picture to view our full presentation PDF*
 
-vaclis 日誌：
-## Pi 前提綱要
-- 我有設一個環境變數，$CONNECT_PACKAGE_PATH裡面有我們iot core跑start.sh裝那些套件的venv，可以用：
-source $CONNECT_PACKAGE_PATH/venv/bin/activate
-- 我有在樹莓派上暫時的用了一個ssh key連到我的github，所以可以自由自在的上傳到這個repo，學期末提醒我刪掉XD
-- 我有開ssh權限，ssh vaclis@vaclishome.local，密碼vaclis
-- 我有開vpc權限，推薦本機端可用RealVNC，然後host打vaclishome.local，密碼同上
+---
 
-## Pi to iot core to s3
-### 在樹莓派端
-- 每秒鐘拍照的在cam.py
-- 先sudo apt install -y python3-libcamera libcamera-apps
-- iot core最一開始會需要初始化，先創一個python venv：
-python3 -m venv venv --system-site-packages
-source venv/bin/activate
-- 跑start.sh，他example就會開始傳垃圾上去給你測試，你有看到就可以終止了
-- 跑cam.py，跑之前要先pip install AWSIoTPythonSDK picamera2 ===> cam.py是每兩秒拍一張照片上傳到s3
-- 跑screen.py，一定要用樹莓派的terminal跑，可用vpc遠端控制==>screen.py會打開GUI，讓你可以按了觸控螢幕就拍照
-- 跑realtime_camera.py，要先裝：
-pip install --upgrade --force-reinstall --no-cache-dir pillow
-### 在amazon端
-- 在AWS IoT左側Message Routing/rules中的RaspberryPi_to_S3改成用lambda，lambda的程式碼在lambda/ImageHandler_vaclis.py
-- 在AWS IoT左側All Devices/Things中的RaspberryPi_Cam中的b555123197747ec6327a53bf46c85636106f00b514b01e9a7b3fbc96fa730b81中的vaclis_home-Policy暫時改成iot有所有權限，程式碼在policy/vaclis_home-Policy.json
+## **Project Overview**
+RecyScore is an innovative IoT-based recycling reward system that uses Large Language Model (LLM) to identify and classify recyclable items. The system provides real-time feedback and rewards users for proper recycling practices, encouraging sustainable waste management.
+
+### **Key Features**
+- Real-time object capturing and uploading using Raspberry Pi camera and official tablet
+- AWS IoT Core integration for device status management on web
+- AI-powered image analysis using OpenAI's LLM model
+- Web-based dashboard for tracking recycling statistics
+- Reward system for encouraging proper recycling practices
+
+## **System Architecture**
+The project consists of several key components:
+- **Raspberry Pi Module**: Handles camera capture and local processing
+- **AWS IoT Core**: Manages device connectivity and state
+- **Lambda Functions**: Process images and manage data
+- **Web Interface**: Displays statistics and user dashboard
+- **DynamoDB**: Stores recycling statistics and user data
+
+## **Team Members**
+- **Song-Ze, Yu** [(@vaclisinc)](http://github.com/vaclisinc): Raspberry Pi camera capturing and GUI, AWS ioT core and device shadow, website function writing, slide making and video editing.
+- **Koying** [(@koyingtw)](https://github.com/koyingtw): LLM Lambda function, AWS DynamoDB, AWS API Gateway, S3 static web hosting.
+- **Daniel Lin** [(@trkk28097402)](https://github.com/trkk28097402): ioT core SDK installing, slide making.
+
+## **Getting Started**
+1. Clone the repository
+2. Set up your AWS credentials and environment variables (see `example_env.txt`)
+3. Install required dependencies
+4. Run the GUI on Raspberry Pi using `run.sh` (You may need to modfiy the python env directory.)
+
+## **Project Structure**
+```
+RecyScore/
+├── pi/                 # Raspberry Pi related code
+├── lambda/            # AWS Lambda functions
+├── web/              # Web interface files
+├── policy/           # AWS IAM policies
+└── run.sh            # Startup script
+```
+
+## **Technologies Used**
+- Python
+- AWS IoT Core
+- AWS Lambda
+- AWS DynamoDB
+- AWS API Gateway
+- OpenAI API
+- Raspberry Pi
+- HTML/CSS/JavaScript
+
+## **License**
+This project is licensed under the MIT License - see the LICENSE file for details.
